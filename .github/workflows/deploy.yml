@@ -36,9 +36,10 @@ jobs:
           curl -fsSL https://railway.app/install.sh | sh
           echo "$HOME/.railway/bin" >> $GITHUB_PATH
 
-      - name: Test Railway Authentication
+      - name: Deploy with Railway (Official Method)
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway --version
-          railway whoami
+          echo "${{ secrets.RAILWAY_TOKEN }}" | railway auth
+          railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+          railway deploy
