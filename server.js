@@ -14,6 +14,3 @@ if (require.main === module) {
 }
 
 module.exports = app;
-
-// 🔥 重要: process.env.PORT を使用
-
