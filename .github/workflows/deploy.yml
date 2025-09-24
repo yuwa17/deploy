@@ -34,9 +34,11 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
       
-      - name: Deploy to Railway
+      - name: Debug Token Format
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-          railway deploy
+          echo "Token length: ${#RAILWAY_TOKEN}"
+          echo "Token prefix: ${RAILWAY_TOKEN:0:12}"
+          echo "Token ends with: ${RAILWAY_TOKEN: -4}"
+          railway whoami
