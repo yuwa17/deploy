@@ -23,29 +23,20 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Test results
-        if: success()
-        run: echo "✅ All tests passed!"
-
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    name: Deploy to Railway
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-      
-      - name: Deploy to Railway
-        run: |
-          railway login --browserless
-          railway link --project=${{ secrets.RAILWAY_PROJECT_ID }}
-          railway up
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      
-      - name: Deployment success
-        if: success()
-        run: echo "🚀 Deployment completed successfully!"
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Install Railway CLI
+      run: npm install -g @railway/cli
+    
+    - name: Deploy to Railway
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      run: |
+        railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+        railway deploy
