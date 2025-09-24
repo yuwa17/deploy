@@ -40,10 +40,6 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-          railway deploy
-      
-      - name: Deployment success
-        if: success()
-        run: echo "🚀 Deployment completed successfully!"
-        
+          railway status
+          railway deploy --service ${{ secrets.RAILWAY_SERVICE_ID }}
+              
