@@ -36,10 +36,7 @@ jobs:
           curl -fsSL https://railway.app/install.sh | sh
           echo "$HOME/.railway/bin" >> $GITHUB_PATH
 
-      - name: Deploy with Railway (Official Method)
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Deploy to Railway
         run: |
-          echo "${{ secrets.RAILWAY_TOKEN }}" | railway auth
-          railway link ${{ secrets.RAILWAY_PROJECT_ID }}
-          railway deploy
+          RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+          RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway deploy
